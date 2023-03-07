@@ -1,4 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:mobile_test/helpers/app_colors.dart';
+import 'package:mobile_test/pages/homepage.dart';
+import 'package:mobile_test/pages/profilepage.dart';
+import 'package:mobile_test/pages/requestpage.dart';
 
 class BottomAppBar extends StatefulWidget {
   const BottomAppBar({super.key});
@@ -15,13 +21,35 @@ class _BottomAppBarState extends State<BottomAppBar> {
     });
   }
 
-  final List<Widget> _pages = [];
+  final List<Widget> _pages = [
+    HomePage(),
+    RequestPage(),
+    ProfilePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: Container(),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+        child: ClipRRect(
+          child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              unselectedItemColor: Color.fromARGB(255, 49, 41, 41),
+              showUnselectedLabels: false,
+              onTap: _navigateBottomBar,
+              iconSize: 20,
+              currentIndex: _selectedIndex,
+              items: const [
+                BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home)),
+                BottomNavigationBarItem(
+                    label: "Request", icon: Icon(Icons.request_page)),
+                BottomNavigationBarItem(
+                    label: "Profile", icon: Icon(Icons.person)),
+              ]),
+        ),
+      ),
     );
   }
 }
